@@ -4,6 +4,6 @@ torchaudio
 transformers
 sentence-transformers
 ultralytics
-opencv-python
+opencv-python-headless
 streamlit
 Pillow
