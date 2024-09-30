@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 # Function to save frames to folder
 def save_frames(video_path, output_folder):
     # Load YOLOv8 model with custom weights for violence detection
-    model = YOLO('D:\Skills\Traning\Generative AI\video analysis\violence_weights.pt')
+    model = YOLO('violence_weights.pt')
 
     # Run inference on the video
     results = model(video_path, stream=True)
@@ -97,12 +97,12 @@ def main():
     
     if video_file:
         # Process the video and extract frames
-        output_folder = 'D:\Skills\Traning\Generative AI\video analysis\extracted_frames'
+        output_folder = 'extracted_frames'
         st.write("Processing video...")
         output_folder = save_frames(video_file, output_folder)
         
         # Generate captions for each frame and save to text file
-        captions_file = 'D:\Skills\Traning\Generative AI\video analysis\captions.txt3'
+        captions_file = 'captions.txt3'
         with open(captions_file, 'w') as f:
             frames_folder = output_folder
             frame_files = [os.path.join(frames_folder, file) for file in os.listdir(frames_folder) if file.endswith(('.png', '.jpg'))]
@@ -127,13 +127,13 @@ def main():
     if query:
         # Load precomputed caption embeddings and find best frame
         st.write("Searching for best matching frame...")
-        caption_file = 'D:\Skills\Traning\Generative AI\video analysis\captions.txt3'
+        caption_file = 'captions.txt3'
         frame_captions = load_captions(caption_file)
         caption_embeddings = compute_caption_embeddings(frame_captions, SentenceTransformer('paraphrase-MiniLM-L6-v2'))
         best_frame = search_frame_by_caption(query, caption_embeddings, SentenceTransformer('paraphrase-MiniLM-L6-v2'))
         
         # Display the best matching frame
-        frame_dir = 'D:\Skills\Traning\Generative AI\video analysis\extracted_frames'
+        frame_dir = 'extracted_frames'
         best_frame_path = os.path.join(frame_dir, f"{best_frame.replace('Frame ', 'frame_')}.png")
         display_frame(best_frame_path)
 
