@@ -1,0 +1,9 @@
+torch
+torchvision
+torchaudio
+transformers
+sentence-transformers
+ultralytics
+opencv-python
+streamlit
+Pillow
